@@ -3,93 +3,78 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: Home(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class Home extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Home(title: 'Frases do Dia!'),
-    );
-  }
+  _HomeState createState() => _HomeState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _numeroAleatorio = 0;
-  List _frases = [
-    'Olá',
-    'Tudo bem?',
-    'Vou bem, e com você?',
-    'Vou bem também',
+class _HomeState extends State<Home> {
+  var _frases = [
+    "Frase1",
+    "Frase2",
+    "Frase3",
+    "Frase4",
+    "Frase5",
   ];
 
-  void _incrementCounter() {
+  int _sorteio = 0;
+
+  void _gerarFrase() {
     setState(() {
-      _numeroAleatorio = Random().nextInt(4);
+      _sorteio = Random().nextInt(_frases.length);
     });
   }
-
-  int get numeroaleatorio {
-    return _numeroAleatorio;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return null;
-  }
-}
-
-class Home extends StatelessWidget {
-  final String title;
-
-  Home({this.title});
-
-  List _frases = [
-    'Olá',
-    'Tudo bem?',
-    'Vou bem, e com você?',
-    'Vou bem também',
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Frases do Dia'),
+        backgroundColor: Colors.purple,
       ),
-      body: Center(
+      body: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 3,
+            color: Colors.amber,
+          ),
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset("images/logo.png"),
+            Text(_frases[_sorteio]),
             Text(
-              'Pressione o botão para gerar uma frase:',
+              "Clique abaixo para gerar uma frase!",
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontSize: 17,
+                fontStyle: FontStyle.italic,
+                color: Colors.black,
+              ),
             ),
-            Text(
-              '${_frases[0]}',
-              style: Theme.of(context).textTheme.headline4,
+            RaisedButton(
+              child: Text(
+                "Nova Frase",
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              color: Colors.purple,
+              onPressed: _gerarFrase,
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.grey,
-        child: Padding(
-          padding: EdgeInsets.all(16),
         ),
       ),
     );
