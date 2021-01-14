@@ -10,12 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Frases do Dia!'),
+      home: Home(title: 'Frases do Dia!'),
     );
   }
 }
@@ -43,11 +44,33 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  int get numeroaleatorio {
+    return _numeroAleatorio;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return null;
+  }
+}
+
+class Home extends StatelessWidget {
+  final String title;
+
+  Home({this.title});
+
+  List _frases = [
+    'Olá',
+    'Tudo bem?',
+    'Vou bem, e com você?',
+    'Vou bem também',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: Center(
         child: Column(
@@ -57,16 +80,17 @@ class _MyHomePageState extends State<MyHomePage> {
               'Pressione o botão para gerar uma frase:',
             ),
             Text(
-              '${_frases[_numeroAleatorio]}',
+              '${_frases[0]}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.grey,
+        child: Padding(
+          padding: EdgeInsets.all(16),
+        ),
       ),
     );
   }
