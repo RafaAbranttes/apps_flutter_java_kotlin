@@ -10,8 +10,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _valor = '0';
+  bool _fluxo = false;
+  bool _dadoFinal = true;
 
   Future<void> _recuperarpreco() async {
+    setState(() {
+      _fluxo = true;
+      _dadoFinal = true;
+    });
+
     String url = 'http://blockchain.info/ticker';
 
     http.Response response = await http.get(url);
@@ -20,6 +27,8 @@ class _HomeState extends State<Home> {
 
     setState(() {
       _valor = dados['BRL']['buy'].toString();
+      _fluxo = true;
+      _dadoFinal = false;
     });
   }
 
@@ -36,10 +45,18 @@ class _HomeState extends State<Home> {
               Image.asset('images/logo.png'),
               Padding(
                 padding: EdgeInsets.only(top: 30, bottom: 30),
-                child: Text(
-                  'R\$ ${_valor}',
-                  style: TextStyle(fontSize: 35),
-                ),
+                child: !_fluxo && _dadoFinal
+                    ? Text('')
+                    : _dadoFinal && _fluxo
+                        ? CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                            valueColor: new AlwaysStoppedAnimation<Color>(
+                                Colors.orange),
+                          )
+                        : Text(
+                            'R\$ $_valor',
+                            style: TextStyle(fontSize: 35),
+                          ),
               ),
               RaisedButton(
                 child: Text(
