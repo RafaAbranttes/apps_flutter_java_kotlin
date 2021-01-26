@@ -1,4 +1,4 @@
-tatuspackage com.estudoparajava.pedrapapeloutesoura;
+package com.estudoparajava.pedrapapeloutesoura;
 
 import androidx.appcompat.app.AppCompatActivity;
 
