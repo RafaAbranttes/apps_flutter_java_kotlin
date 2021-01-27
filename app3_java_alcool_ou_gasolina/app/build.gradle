@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.estudoparajava.jokenpo"
+        applicationId "com.estudoparajava.lcoolougasolina"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
