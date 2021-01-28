@@ -1,4 +1,4 @@
-package com.estudoparajava.jokenpo;
+package com.estudoparajava.calculadoradegorjeta;
 
 import org.junit.Test;
 
